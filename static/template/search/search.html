@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+{% block Banner %}{% endblock %}
+
+{% block area %}
+    <div class="col-lg-8">
+			<div class="blog_left_sidebar">
+				<div class="row">
+					{% for post in page.object_list %}
+					<div class="col-md-6">
+						<article class="blog_style1 small">
+							<div class="blog_img">
+								<img class="img-fluid" style="height: 280px;" src="/media/{{ post.cover }}" alt="">
+							</div>
+							<div class="blog_text">
+								<div class="blog_text_inner">
+									<div class="cat">
+										<a class="cat_btn" href="#">{{ post.category }}</a>
+										<a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{ post.create_time|date:"Y-m-d" }}</a>
+										<a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
+									</div>
+									<a href="{% url 'post:detail' post.id %}" ><h4>{{ post.title }}</h4></a>
+									<p>{{ post.short_detail|safe }}</p>
+									<a class="blog_btn" href="{% url 'post:detail' post.id %}">Read More</a>
+								</div>
+							</div>
+						</article>
+					</div>
+					{% empty %}
+            		<h3>没有找到相关文章</h3>
+					{% endfor %}
+				</div>
+
+
+
+				<!-- 分页栏 -->
+				<nav class="blog-pagination justify-content-center d-flex">
+					<ul class="pagination">
+						{% if page.has_previous %}
+						<li class="page-item">
+							<a href="{% url 'post:haystack_search' %}?q={{ query }}&page={{ page.previous_page_number }}" class="page-link" aria-label="Previous">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-left"></span>
+								</span>
+							</a>
+
+						</li>
+						{% else %}
+						<li class="page-item">
+							<a href="#" class="page-link" aria-label="Previous">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-left"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+
+						{% for num in page.paginator.page_range %}
+							{% if num == page.number %}
+								<li class="page-item active"><a href="{% url 'post:haystack_search' %}?q={{ query }}&page={{ num }}" class="page-link">{{ num }}</a></li>
+							{% else %}
+								<li class="page-item"><a href="{% url 'post:haystack_search' %}?q={{ query }}&page={{ num }}" class="page-link">{{ num }}</a></li>
+							{% endif %}
+						{% endfor %}
+
+						{% if page.has_next %}
+						<li class="page-item">
+							<a href="{% url 'post:haystack_search' %}?q={{ query }}&page={{ page.next_page_number }}" class="page-link" aria-label="Next">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-right"></span>
+								</span>
+							</a>
+						</li>
+						{% else %}
+						<li class="page-item">
+							<a href="#" class="page-link" aria-label="Next">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-right"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</nav>
+
+			</div>
+
+					</div>
+{% endblock %}

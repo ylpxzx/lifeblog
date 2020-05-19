@@ -1,0 +1,69 @@
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+
+        <!-- 搜索栏 -->
+        <aside class="single_sidebar_widget search_widget">
+            <div class="input-group">
+                <form action="{% url 'post:haystack_search' %}" method="get">
+                <input type="text" name="q"  class="form-control" placeholder="Search Posts">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" id="search"><i class="lnr lnr-magnifier"></i></button>
+                </span>
+                </form>
+
+            </div>
+            <div class="br"></div>
+        </aside>
+
+        {% for author in author_list %}
+        <!-- 博主信息栏 -->
+        <aside class="single_sidebar_widget author_widget">
+            <img class="author_img img-fluid" style="width: 300px" src="/media/{{ author.head_photo }}" alt="">
+            <h4>{{ author.name }}</h4>
+            <p>{{ author.blog_major }}</p>
+            <p>{{ autograph }}</p>
+            <div class="social_icon">
+                {% for link in link_list %}
+                <a href="{{ link.link_name }}" target="_Blank"><i class="{{ link.icon_name }}"></i></a>
+                {% endfor %}
+            </div>
+            <div class="br"></div>
+        </aside>
+        {% endfor %}
+        <!-- 最热文章栏 -->
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title">Popular Posts</h3>
+
+            <!-- for循环块 -->
+            {% for popular in popular_post %}
+            <div class="media post_item">
+                <img src="/media/{{ popular.cover }}" style="max-width: 40%" alt="post">
+                <div class="media-body">
+                    <a href="{% url 'post:detail' popular.id %}"><h3>{{ popular.title }}</h3></a>
+                    <p>{{ popular.create_time|timesince }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="br"></div>
+        </aside>
+
+        <!-- 分类栏 -->
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title">Post Catgories</h4>
+            <ul class="list cat-list">
+
+                <!-- for循环块 -->
+                {% for category in category_list%}
+                <li>
+                    <a href="{% url 'post:index' %}?category={{ category.post_category }}" class="d-flex justify-content-between">
+                        <p>{{ category.post_category }}</p>
+                        <p>{{ category.c }}</p>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </aside>
+
+    </div>
+</div>

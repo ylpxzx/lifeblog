@@ -1,0 +1,174 @@
+/* Home Banner Area css
+============================================================================================ */
+.home_banner_area{
+	background: url(../img/banner/home-banner.jpg) no-repeat scroll center left;
+	background-color: #f9f9ff;
+	background-size: contain;
+	.blog_text_slider{
+		padding-top: 100px;
+		padding-bottom: 100px;
+		position: relative;
+		.owl-prev, .owl-next{
+			position: absolute;
+			right: -200px;
+			transform: translateY(-50%);
+			z-index: 2;
+			font-size: 45px;
+			color: #e1e1e6;
+			cursor: pointer;
+			@include transition;
+			&:hover{
+				color: $dip;
+			}
+		}
+		.owl-prev{
+			top: 44%;
+		}
+		.owl-next{
+			top: 52%;
+		}
+	}
+}
+
+.blog_text{
+	background: #fff;
+	padding: 115px 65px 65px 65px;
+	.cat{
+		margin-bottom: 30px;
+		.cat_btn{
+			background: #000000;
+			line-height: 30px;
+			color: #fff;
+			padding: 0px 20px;
+			border-radius: 15px;
+			display: inline-block;
+			font-size: 12px;
+			font-family: $icon;
+		}
+		a{
+			color: $pfont;
+			margin-right: 15px;
+			i{
+				color: $dip;
+				font-size: 12px;
+			}
+			&:last-child{
+				margin-right: 0px;
+			}
+		}
+	}
+	h4{
+		font-size: 36px;
+		line-height: 45px;
+		color: $dip;
+		margin-bottom: 18px;
+	}
+	p{
+		margin-bottom: 35px;
+	}
+}
+
+
+.blog_banner{
+	min-height: 780px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	margin-bottom: 0px;
+	.banner_inner{
+		background: #04091e;
+		position: relative; 
+		overflow: hidden;
+		width: 100%;
+		min-height: 780px;
+		z-index: 1;
+		.overlay{
+			background: url(../img/banner/banner-2.jpg) no-repeat scroll center center;
+			opacity: .5;
+			height: 125%;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			z-index: -1;
+		}
+		.blog_b_text{
+			max-width: 700px;
+			margin: auto;
+			color: #fff;
+			margin-top: 80px;
+			h2{
+				font-size: 60px;
+				font-weight: 500;
+				font-family: $icon;
+				line-height: 66px;
+				margin-bottom: 15px;
+			}
+			p{
+				font-size: 16px;
+				margin-bottom: 35px;
+			}
+			.white_bg_btn{
+				line-height: 42px;
+				padding: 0px 45px;
+			}
+		}
+	}
+}
+
+.banner_box{
+	max-width: 1620px;
+	margin: auto;
+}
+.banner_area{
+	position: relative;
+	z-index: 1;
+	background: url(../img/banner/banner.jpg) no-repeat scroll center left;
+	background-color: #f9f9ff;
+	background-size: contain;
+	.banner_inner{
+		position: relative;
+		overflow: hidden;
+		z-index: 1;
+		padding: 75px 0px;
+		.banner_content{
+			background: #fff;
+			padding: 95px 0px;
+			h2{
+				color: #000;
+				font-size: 36px;
+				font-family: $icon;
+				font-weight: bold;
+			}
+			.page_link{
+				a{
+					font-size: 14px;
+					color: #000;
+					font-family: $icon;
+					margin-right: 32px;
+					position: relative;
+					&:before{
+						content: "\e87a";
+						font-family: 'Linearicons-Free';
+						position: absolute;
+						right: -25px;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+					&:last-child{
+						margin-right: 0px;
+						&:before{
+							display: none;
+						}	
+					}
+					&:hover{
+						color: $baseColor;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* End Home Banner Area css
+============================================================================================ */

@@ -1,0 +1,30 @@
+/*font Variables*/
+$icon: 'Inconsolata', monospace;
+
+
+/*Color Variables*/
+$baseColor: #6f6fff;
+$dip: #000;
+$pfont: #777777; 
+
+
+/*=================== fonts ====================*/
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+
+// Mixins
+@mixin transition($property: all, $duration: 300ms, $animate: linear, $delay:0s){
+    transition: $property $duration $animate $delay; 
+}
+
+// Placeholder Mixins
+
+@mixin placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+
+
+

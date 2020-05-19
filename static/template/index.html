@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="/media/{{ website.logo_image }}" type="image/png">
+        <title>{{ website.website_name }}</title>
+        <!-- Bootstrap CSS -->
+
+		<link rel="stylesheet" href="{% static 'css/prism.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}">
+        <!-- main css -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    </head>
+    <body>
+        
+        <!--================Header Menu Area =================-->
+        <header class="header_area">
+			<div class="main_menu">
+				<nav class="navbar navbar-expand-lg navbar-light">
+					<div class="container box_1620">
+						
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<!-- 导航栏 -->
+						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+							<ul class="nav navbar-nav menu_nav">
+								<li class="nav-item active"><a class="nav-link" href="{% url 'post:index' %}">Home</a></li>
+							</ul>
+
+							<!-- 导航右侧链接列 -->
+							<ul class="nav navbar-nav navbar-right header_social ml-auto">
+                                {% for link in link_list %}
+								<li class="nav-item"><a href="{{ link.link_name }}" target="_Blank"><i class="{{ link.icon_name }}"></i></a></li>
+                                {% endfor %}
+
+							</ul>
+
+						</div> 
+					</div>
+				</nav>
+			</div>
+
+        </header>
+        <!--================Header Menu Area =================-->
+
+		{% block Banner %}
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area" >
+        	<div class="container">
+				<div class="row">
+					<div class="col-lg-5"></div>
+					<div class="col-lg-7">
+						<div class="blog_text_slider owl-carousel">
+
+							<!-- 最新文章for循环块 -->
+							{% for new in new_post %}
+							<div class="item">
+								<div class="blog_text">
+									<div class="cat">
+										<a class="cat_btn" href="#">{{ new.category }}</a>
+										<a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{ new.create_time|date:"Y-m-d" }}</a>
+										<a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
+									</div>
+									<a href="{% url 'post:detail' new.id %}"><h4>{{ new.title }}</h4></a>
+									<p>{{ new.short_detail|safe }}</p>
+									<a class="blog_btn" href="{% url 'post:detail' new.id %}">Read More</a>
+								</div>
+							</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div>
+        	</div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        {% endblock %}
+
+
+
+        <!--================Blog Area =================-->
+        <section class="blog_area p_120" style="padding-top: 30px">
+            <div class="container">
+
+                <div class="row">
+
+					{% block area %}
+                    <div class="col-lg-8">
+                        <div class="blog_left_sidebar">
+
+                            <div class="row">
+								{% for post in post_list %}
+                            	<div class="col-md-6">
+                            		<article class="blog_style1 small">
+										<div class="blog_img">
+											<img class="img-fluid" style="height: 280px;" src="/media/{{ post.cover }}" alt="">
+										</div>
+										<div class="blog_text">
+											<div class="blog_text_inner">
+												<div class="cat">
+													<a class="cat_btn" href="#">{{ post.category }}</a>
+													<a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{ post.create_time|date:"Y-m-d" }}</a>
+													<a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
+												</div>
+												<a href="{% url 'post:detail' post.id %}" ><h4>{{ post.title }}</h4></a>
+												<p>{{ post.short_detail|safe }}</p>
+												<a class="blog_btn" href="{% url 'post:detail' post.id %}">Read More</a>
+											</div>
+										</div>
+									</article>
+								</div>
+								{% empty %}
+            					<h3>没有找到相关文章</h3>
+								{% endfor %}
+							</div>
+
+
+							<!-- 分页栏 -->
+                            <nav class="blog-pagination justify-content-center d-flex">
+		                        <ul class="pagination">
+									{% if page_obj.has_previous %}
+		                            <li class="page-item">
+                                        {% if category == None %}
+		                                <a href="{% url 'post:index' %}?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-left"></span>
+		                                    </span>
+		                                </a>
+                                        {% else %}
+                                        <a href="{% url 'post:index' %}?category={{ category }}&page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-left"></span>
+		                                    </span>
+		                                </a>
+                                        {% endif %}
+		                            </li>
+									{% else %}
+									<li class="page-item">
+		                                <a href="#" class="page-link" aria-label="Previous">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-left"></span>
+		                                    </span>
+		                                </a>
+		                            </li>
+									{% endif %}
+
+									{% for num in paginator.page_range %}
+									{% if category == None %}
+										{% if num == page_obj.number %}
+											<li class="page-item active"><a href="{% url 'post:index' %}?page={{ num }}" class="page-link">{{ num }}</a></li>
+										{% else %}
+											<li class="page-item"><a href="{% url 'post:index' %}?page={{ num }}" class="page-link">{{ num }}</a></li>
+		                           		{% endif %}
+									{% else %}
+										{% if num == page_obj.number %}
+											<li class="page-item active"><a href="{% url 'post:index' %}?category={{ category }}&page={{ num }}" class="page-link">{{ num }}</a></li>
+										{% else %}
+											<li class="page-item"><a href="{% url 'post:index' %}?category={{ category }}&page={{ num }}" class="page-link">{{ num }}</a></li>
+		                           		{% endif %}
+									{% endif %}
+									{% endfor %}
+
+									{% if page_obj.has_next %}
+		                            <li class="page-item">
+                                        {% if category == None %}
+		                                <a href="{% url 'post:index' %}?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-right"></span>
+		                                    </span>
+		                                </a>
+                                        {% else %}
+                                        <a href="{% url 'post:index' %}?category={{ category }}&page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-right"></span>
+		                                    </span>
+		                                </a>
+                                        {% endif %}
+		                            </li>
+									{% else %}
+									<li class="page-item">
+		                                <a href="#" class="page-link" aria-label="Next">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-right"></span>
+		                                    </span>
+		                                </a>
+		                            </li>
+									{% endif %}
+		                        </ul>
+							</nav>
+
+                        </div>
+					</div>
+
+					{% endblock %}
+
+
+                    {% include 'side.html' %}
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area =================-->
+		
+		
+
+        <!--================ start footer Area  =================-->	
+        <footer class="footer-area p_120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title">About Us</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget f_social_wd">
+                            <h6 class="footer_title">Follow Us</h6>
+                            <p>Let us be social</p>
+                            <div class="f_social">
+                            	<a href="#"><i class="fa fa-facebook"></i></a>
+								<a href="#"><i class="fa fa-twitter"></i></a>
+								<a href="#"><i class="fa fa-dribbble"></i></a>
+								<a href="#"><i class="fa fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>						
+                </div>
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col-lg-12 footer-text text-center">
+Copyright &copy;<script>document.write(new Date().getFullYear());
+					</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+
+</p>
+                </div>
+            </div>
+        </footer>
+		<!--================ End footer Area  =================-->
+        
+        
+        
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/stellar.js' %}"></script>
+        <script src="{% static 'vendors/lightbox/simpleLightbox.min.js' %}"></script>
+        <script src="{% static 'vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
+        <script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
+        <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/mail-script.js' %}"></script>
+        <script src="{% static 'js/theme.js' %}"></script>
+    </body>
+</html>

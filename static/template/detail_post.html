@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% block Banner %}{% endblock %}
+
+{% block area %}
+    <div class="col-lg-8">
+        <div class="main_blog_details">
+            <img class="img-fluid" src="/media/{{ post.cover }}" alt="">
+            <a href="#"><h4>{{ post.title }}</h4></a>
+            <div class="user_details">
+                <div class="float-left">
+                    <a href="#">{{ post.category }}</a>
+                </div>
+                <div class="float-right">
+                    {% for author in author_list %}
+                    <div class="media">
+                        <div class="media-body">
+                            <h5>{{ author.name }}</h5>
+                            <p>{{ post.create_time|date:"Y-n-d H:i " }}</p>
+                        </div>
+                        <div class="d-flex">
+                            <img style="height: 50px" src="/media/{{ author.head_photo }}" alt="">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {{ post.content|safe }}
+
+
+           </div>
+
+
+
+        <div class="navigation-area">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+
+                    <div class="arrow">
+                        <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
+                    </div>
+                    {% if prev_post != 0 %}
+                    <div class="detials">
+                        <p>Prev Post</p>
+                        <a href="{% url 'post:detail' prev_post.id %}"><h4>{{ prev_post.title }}</h4></a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                    {% if next_post != 0 %}
+                    <div class="detials">
+                        <p>Next Post</p>
+                        <a href="{% url 'post:detail' next_post.id %}"><h4>{{ next_post.title }}</h4></a>
+                    </div>
+                    {% endif %}
+                    <div class="arrow">
+                        <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+<!--        是否开启评论-->
+{% if post.is_comment == True %}
+        {% include 'comment.html' %}
+{% endif %}
+
+    </div>
+
+    {% endblock %}
